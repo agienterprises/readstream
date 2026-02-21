@@ -5,6 +5,7 @@ import Editor from "./components/Editor";
 import Settings from "./components/Settings";
 import Prompter from "./components/Prompter";
 import { Cog, Play } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 export type AppMode = "manual" | "voice";
 
@@ -54,39 +55,40 @@ function App() {
   }
 
   return (
-    <div className="flex h-screen bg-neutral-900 text-white overflow-hidden">
+    <div className="flex h-screen bg-background text-foreground overflow-hidden">
       <div className="flex-1 flex flex-col p-4 relative">
         <header className="flex justify-between items-center mb-4">
-          <h1 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500">
+          <h1 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent-foreground">
             Textream Windows
           </h1>
           <div className="flex gap-2">
-            <button
+            <Button
+              variant="ghost"
+              size="icon"
               onClick={() => setShowSettings(!showSettings)}
-              className="p-2 rounded-full hover:bg-neutral-800 transition"
               title="Settings"
             >
-              <Cog size={20} />
-            </button>
-            <button
+              <Cog className="w-5 h-5" />
+            </Button>
+            <Button
               onClick={handleStart}
               disabled={!scriptText.trim()}
-              className="flex items-center gap-2 bg-blue-600 hover:bg-blue-500 disabled:opacity-50 disabled:cursor-not-allowed px-4 py-2 rounded-lg font-medium transition"
+              className="gap-2"
             >
-              <Play size={18} fill="currentColor" />
+              <Play className="w-4 h-4 fill-current" />
               Start Prompter
-            </button>
+            </Button>
           </div>
         </header>
 
-        <div className="flex-1 overflow-hidden relative rounded-xl border border-neutral-800 bg-neutral-950/50">
+        <div className="flex-1 overflow-hidden relative rounded-xl border border-border bg-card/50">
           <Editor
             value={scriptText}
             onChange={setScriptText}
           />
 
           {showSettings && (
-            <div className="absolute top-0 right-0 h-full w-80 bg-neutral-900/95 backdrop-blur-md border-l border-neutral-800 p-6 shadow-2xl transition-transform duration-300 z-10">
+            <div className="absolute top-0 right-0 h-full w-80 bg-background/95 backdrop-blur-md border-l border-border shadow-2xl transition-transform duration-300 z-10">
               <Settings
                 fontSize={fontSize}
                 setFontSize={setFontSize}

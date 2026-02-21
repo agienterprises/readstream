@@ -1,6 +1,7 @@
 import React, { useRef, useState } from "react";
 import { invoke } from "@tauri-apps/api/core";
 import { Download } from "lucide-react";
+import { Textarea } from "@/components/ui/textarea";
 
 interface EditorProps {
   value: string;
@@ -72,14 +73,14 @@ const Editor: React.FC<EditorProps> = ({ value, onChange }) => {
 
   return (
     <div
-      className={`relative w-full h-full flex flex-col ${isDragging ? "bg-blue-900/20" : ""}`}
+      className={`relative w-full h-full flex flex-col ${isDragging ? "bg-accent/20" : ""}`}
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
       onDrop={handleDrop}
     >
-      <textarea
+      <Textarea
         ref={textareaRef}
-        className="flex-1 w-full h-full bg-transparent text-lg p-4 resize-none focus:outline-none font-mono text-neutral-300 placeholder-neutral-600"
+        className="flex-1 w-full h-full bg-transparent text-lg p-4 resize-none focus-visible:ring-0 border-none font-mono text-foreground placeholder:text-muted-foreground"
         placeholder="Paste your script here, or drop a .txt, .md, or .pptx file..."
         value={value}
         onChange={(e) => onChange(e.target.value)}
@@ -87,10 +88,10 @@ const Editor: React.FC<EditorProps> = ({ value, onChange }) => {
       />
 
       {isDragging && (
-        <div className="absolute inset-0 flex items-center justify-center pointer-events-none bg-black/50 backdrop-blur-sm rounded-xl border-2 border-dashed border-blue-500">
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none bg-background/50 backdrop-blur-sm rounded-xl border-2 border-dashed border-primary">
            <div className="text-center">
-              <Download className="w-12 h-12 mx-auto text-blue-400 mb-2" />
-              <p className="text-xl font-medium text-blue-200">Drop file to import</p>
+              <Download className="w-12 h-12 mx-auto text-primary mb-2" />
+              <p className="text-xl font-medium text-primary">Drop file to import</p>
            </div>
         </div>
       )}
